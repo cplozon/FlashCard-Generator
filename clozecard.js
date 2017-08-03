@@ -1,16 +1,28 @@
 var fs = require("fs");
-var BasicCard = require("./BasicCard")
+var BasicCard = require("./BasicCard");
+
 
 BasicCard.CreateClozeCard;
-console.log("In Other File");
 
 
-var Test = function() {
-	this.getData = function() {
-		fs.readFile("cardTxt.txt", "utf8", function(error,data){
-			console.log(data);
-		});
-	};
-};
+var ClozeCard = function() {
+var constructCCard = function(completeCObject){
+			for(var i=0; i<1; i++){
+			completeCObject.entireCard = completeCObject.entireCard.replace("[textCard]", completeCObject.text[i]);
+			}
+			for(var i=0; i<1; i++){
+			completeCObject.entireCard = completeCObject.entireCard.replace("[clozeCard]", completeCObject.cloze[i]);
+			}
+			
+			var cardTxt = completeCObject.entireCard;
+			console.log("Your Entire Cloze Card Is: " + cardTxt);
+			console.log("Your Cloze Part Is: " + cloze);
+			console.log(JSON.stringify(completeCObject));
+			fs.writeFile("cardTxt.txt", JSON.stringify(completeCObject));
+			cardMakeContinue();
+			}
+		}
 
- module.exports = Test;
+
+
+ module.exports = ClozeCard;

@@ -1,6 +1,8 @@
 var inquirer = require("inquirer");
 var fs = require("fs");
-var Other = require("./ClozeCard");
+var ClozeCard = require("./ClozeCard");
+
+ClozeCard.constructCCard;
 
 //  starting with a function that allows user to enter their first choice//
 function menuOptions() {
@@ -57,7 +59,6 @@ menuOptions();  //// call back to menuOptions function
  		if (cardType === "Basic Card") {  // if basic card create front,back
 	
 		function CreateBasicCard(front,back){
-		console.log("Here");
 		this.front = front;
 		this.back = back;
 		this.entireCard = "[frontCard] , [backCard]";
@@ -140,27 +141,26 @@ menuOptions();  //// call back to menuOptions function
 				}).then(function(answers){
 				cloze.push(answers.clozeCard);
 				var createClozeCard = new CreateClozeCard(text,cloze);
-				constructCard(createClozeCard);
+				constructCCard(createClozeCard);
 				})
 			}  // close loop for back info
 		} // close get info loop for cloze card info
 // take information and construct the card and write to cardTxt.txt file //
-		var constructCard = function(completeObject){
+		var constructCCard = function(completeCObject){
 			for(var i=0; i<1; i++){
-			completeObject.entireCard = completeObject.entireCard.replace("[textCard]", completeObject.text[i]);
+			completeCObject.entireCard = completeCObject.entireCard.replace("[textCard]", completeCObject.text[i]);
 			}
-			for(var i=0; i<1; i++){
-			completeObject.entireCard = completeObject.entireCard.replace("[clozeCard]", completeObject.cloze[i]);
-			}
-			//entireCard.push(cardClozeObj);
-			//fs.writeFile("cardTxtcloze.txt", JSON.stringify(entireCard, null, 2));
-			var cardTxt = completeObject.entireCard;
-			console.log("Your Entire Cloze Card Is: " + cardTxt);
+		 	for(var i=0; i<1; i++){
+		 	completeCObject.entireCard = completeCObject.entireCard.replace("[clozeCard]", completeCObject.cloze[i]);
+		 	}
+		 	
+		 	var cardTxt = completeCObject.entireCard;
+		 	console.log("Your Entire Cloze Card Is: " + cardTxt);
 			console.log("Your Cloze Part Is: " + cloze);
-			console.log(JSON.stringify(completeObject));
-			fs.writeFile("cardTxt.txt", JSON.stringify(completeObject));
-			cardMakeContinue();
-			}
+		 	//console.log(JSON.stringify(completeCObject));
+		 	fs.writeFile("cardTxt.txt", JSON.stringify(completeCObject));
+		 	cardMakeContinue();
+		 	}
 
 	getInfo(loop); // call back to getInfo function
 	} // close cloze card type if statment
